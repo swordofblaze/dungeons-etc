@@ -1,0 +1,8 @@
+{
+  "parent": "block/stairs",
+  "textures": {
+    "bottom": "dungeons_etc:block/granite_bricks",
+    "top": "dungeons_etc:block/granite_bricks",
+    "side": "dungeons_etc:block/granite_bricks"
+  }
+}

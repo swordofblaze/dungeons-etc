@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/orientable_vertical",
+  "textures": {
+    "front": "dungeons_etc:block/cobblestone_dispenser_front",
+    "side": "minecraft:block/cobblestone"
+  }
+}

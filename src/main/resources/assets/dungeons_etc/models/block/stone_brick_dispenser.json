@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "top": "minecraft:block/stone_bricks",
+    "front": "dungeons_etc:block/stone_brick_dispenser_front",
+    "side": "minecraft:block/stone_bricks"
+  }
+}

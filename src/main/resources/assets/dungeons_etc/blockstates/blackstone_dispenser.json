@@ -1,0 +1,26 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "dungeons_etc:block/blackstone_dispenser_vertical",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "dungeons_etc:block/blackstone_dispenser",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "dungeons_etc:block/blackstone_dispenser"
+    },
+    "facing=south": {
+      "model": "dungeons_etc:block/blackstone_dispenser",
+      "y": 180
+    },
+    "facing=up": {
+      "model": "dungeons_etc:block/blackstone_dispenser_vertical"
+    },
+    "facing=west": {
+      "model": "dungeons_etc:block/blackstone_dispenser",
+      "y": 270
+    }
+  }
+}

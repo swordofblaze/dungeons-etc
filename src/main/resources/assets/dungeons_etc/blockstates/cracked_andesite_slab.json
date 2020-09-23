@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "dungeons_etc:block/cracked_andesite_slab" },
+    "type=top": { "model": "dungeons_etc:block/cracked_andesite_slab_top" },
+    "type=double": { "model": "dungeons_etc:block/cracked_andesite" }
+  }
+}

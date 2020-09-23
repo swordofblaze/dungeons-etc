@@ -1,0 +1,8 @@
+{
+  "parent": "block/outer_stairs",
+  "textures": {
+    "bottom": "dungeons_etc:block/cracked_andesite",
+    "top": "dungeons_etc:block/cracked_andesite",
+    "side": "dungeons_etc:block/cracked_andesite"
+  }
+}

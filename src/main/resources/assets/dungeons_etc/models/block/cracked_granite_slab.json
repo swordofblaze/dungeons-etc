@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "bottom": "dungeons_etc:block/cracked_granite",
+    "top": "dungeons_etc:block/cracked_granite",
+    "side": "dungeons_etc:block/cracked_granite"
+  }
+}

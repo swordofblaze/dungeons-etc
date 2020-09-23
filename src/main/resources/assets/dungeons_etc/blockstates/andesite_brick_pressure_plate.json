@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "powered=false": { "model": "dungeons_etc:block/andesite_brick_pressure_plate" },
+    "powered=true": { "model": "dungeons_etc:block/andesite_brick_pressure_plate_down" }
+  }
+}
