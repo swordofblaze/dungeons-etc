@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.*;
 import net.minecraft.item.crafting.Ingredient;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -17,9 +18,14 @@ public class RecipesGen extends RecipeProvider {
     }
 
     @Override
-    public void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+    public void registerRecipes(@NotNull Consumer<IFinishedRecipe> consumer) {
 
-        // Stonecutting
+        /*
+         * -----------------------------------------------------
+         *                     STONECUTTING
+         * -----------------------------------------------------
+         */
+
         this.registerStonecuttingRecipe(ModBlocks.CRACKED_ANDESITE, Blocks.ANDESITE, 1, consumer);
         this.registerStonecuttingRecipe(ModBlocks.CRACKED_ANDESITE_SLAB, Blocks.ANDESITE, 2, consumer);
         this.registerStonecuttingRecipe(ModBlocks.CRACKED_ANDESITE_STAIRS, Blocks.ANDESITE, 1, consumer);
@@ -55,7 +61,13 @@ public class RecipesGen extends RecipeProvider {
         this.registerStonecuttingRecipe(ModBlocks.GRANITE_BRICK_STAIRS, Blocks.GRANITE, 1, consumer);
         this.registerStonecuttingRecipe(ModBlocks.GRANITE_BRICK_WALL, Blocks.GRANITE, 1, consumer);
 
-        // Shaped
+        /*
+         * -----------------------------------------------------
+         *                       SHAPED
+         * -----------------------------------------------------
+         */
+
+        // Pressure plates
         ShapedRecipeBuilder.shapedRecipe(ModBlocks.ANDESITE_BRICK_PRESSURE_PLATE.get(),
                 1)
                 .key('#', ModBlocks.ANDESITE_BRICKS.get())
@@ -77,7 +89,13 @@ public class RecipesGen extends RecipeProvider {
                 .addCriterion("has_granite_bricks", hasItem(ModBlocks.GRANITE_BRICKS.get()))
                 .build(consumer);
 
-        // Shapeless
+        /*
+         * -----------------------------------------------------
+         *                     SHAPELESS
+         * -----------------------------------------------------
+         */
+
+        // Buttons
         ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.ANDESITE_BRICK_BUTTON.get(),
                 1)
                 .addIngredient(Blocks.ANDESITE)

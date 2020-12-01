@@ -1,14 +1,17 @@
 buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
+        maven { url = 'https://repo.spongepowered.org/maven' }
         jcenter()
         mavenCentral()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
@@ -28,6 +31,8 @@ minecraft {
 
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
+            property 'mixin.debug.export', 'true'
+            arg "-mixin.config=dungeons_etc.mixins.json"
 
             mods {
                 dungeons_etc {
@@ -41,6 +46,7 @@ minecraft {
 
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
+            arg "-mixin.config=dungeons_etc.mixins.json"
 
             mods {
                 dungeons_etc {
@@ -62,7 +68,15 @@ minecraft {
     }
 }
 
+mixin {
+    add sourceSets.main, "dungeons_etc.mixins.refmap.json"
+}
+
 repositories {
+    maven {
+        name 'ForgeFS'
+        url 'https://files.minecraftforge.net/maven'
+    }
     maven {
         name 'prog'
         url 'http://dvs1.progwml6.com/files/maven'
@@ -76,12 +90,16 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
+    compileOnly "org.jetbrains:annotations:${jb_annotations}"
+
     // JEI
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
 
     // HWYLA
     compileOnly fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}:api")
     runtimeOnly fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}")
+
+    annotationProcessor 'org.spongepowered:mixin:0.8:processor'
 }
 
 
@@ -90,11 +108,12 @@ jar {
         attributes([
             "Specification-Title": "dungeons_etc",
             "Specification-Vendor": "Dungeons Etc. Dev Team",
-            "Specification-Version": "1", // We are version 1 of ourselves
+            "Specification-Version": "${project.mod_version}",
             "Implementation-Title": project.name,
-            "Implementation-Version": "${version}",
+            "Implementation-Version": "${project.mod_version}",
             "Implementation-Vendor" :"Dungeons Etc. Dev Team",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+            "MixinConfigs": "dungeons_etc.mixins.json"
         ])
     }
 }
@@ -110,6 +129,16 @@ publishing {
     repositories {
         maven {
             url "file:///${project.projectDir}/mcmodsrepo"
+        }
+    }
+}
+
+// Prevent Mixin annotation process from running when importing
+// this gradle project in IntelliJ.
+if (System.getProperty("idea.sync.active") == "true") {
+    afterEvaluate {
+        tasks.withType(JavaCompile).all {
+            it.options.annotationProcessorPath = files()
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.swordofblaze.dungeons_etc.common.entities;
 
-import com.swordofblaze.dungeons_etc.common.core.DungeonsEtc;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -95,8 +94,8 @@ public class WebberEntity extends SpiderEntity {
                     double pitch = MathHelper.sqrt(x * x + z * z);
 
                     webProjectile.shoot(x, y + (pitch * 0.2D), z, 1.5F, 0.5f);
-                    this.world.addEntity(webProjectile);
 
+                    this.world.addEntity(webProjectile);
                     this.webber.playSound(SoundEvents.ENTITY_SNOWBALL_THROW,0.5f, 1.0f);
 
                     this.timer = 0;

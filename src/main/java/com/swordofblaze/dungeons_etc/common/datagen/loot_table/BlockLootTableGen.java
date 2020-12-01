@@ -4,6 +4,7 @@ import com.swordofblaze.dungeons_etc.common.registers.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.data.loot.BlockLootTables;
 import net.minecraft.loot.LootTable;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import java.util.HashSet;
@@ -14,13 +15,13 @@ public class BlockLootTableGen extends BlockLootTables {
     private final Set<Block> knownBlocks = new HashSet<>();
 
     @Override
-    protected void registerLootTable(@Nonnull Block block, @Nonnull LootTable.Builder table) {
+    protected void registerLootTable(@NotNull Block block, @NotNull LootTable.Builder table) {
         super.registerLootTable(block, table);
         this.knownBlocks.add(block);
     }
 
     @Override
-    protected Iterable<Block> getKnownBlocks() {
+    protected @NotNull Iterable<Block> getKnownBlocks() {
         return this.knownBlocks;
     }
 

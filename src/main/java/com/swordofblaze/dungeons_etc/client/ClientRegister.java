@@ -1,8 +1,10 @@
 package com.swordofblaze.dungeons_etc.client;
 
-import com.swordofblaze.dungeons_etc.client.renderers.WebberRenderer;
-import com.swordofblaze.dungeons_etc.common.items.ModSpawnEggItem;
+import com.swordofblaze.dungeons_etc.client.renderers.entity.MaggotRenderer;
+import com.swordofblaze.dungeons_etc.client.renderers.entity.SpitterRenderer;
+import com.swordofblaze.dungeons_etc.client.renderers.entity.WebberRenderer;
 import com.swordofblaze.dungeons_etc.common.core.DungeonsEtc;
+import com.swordofblaze.dungeons_etc.common.items.ModSpawnEggItem;
 import com.swordofblaze.dungeons_etc.common.registers.ModBlocks;
 import com.swordofblaze.dungeons_etc.common.registers.ModEntities;
 import net.minecraft.client.Minecraft;
@@ -34,8 +36,11 @@ public class ClientRegister {
 
     private static void registerEntityRenderers(Supplier<Minecraft> minecraft) {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.WEBBER.get(), WebberRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.SPITTER.get(), SpitterRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.MAGGOT.get(), MaggotRenderer::new);
 
         registerSpriteRenderer(ModEntities.WEB_PROJECTILE.get(), minecraft);
+        registerSpriteRenderer(ModEntities.ACID_PROJECTILE.get(), minecraft, 1.2f);
     }
 
     private static void registerBlockRenderTypes() {
@@ -58,5 +63,13 @@ public class ClientRegister {
     private static <T extends Entity & IRendersAsItem> void registerSpriteRenderer(EntityType<T> entityType, Supplier<Minecraft> minecraftSupplier) {
         ItemRenderer renderer = minecraftSupplier.get().getItemRenderer();
         RenderingRegistry.registerEntityRenderingHandler(entityType, (rendererManager) -> new SpriteRenderer<>(rendererManager, renderer));
+    }
+
+    /**
+     *  SpriteRenderer with specified scale.
+     */
+    private static <T extends Entity & IRendersAsItem> void registerSpriteRenderer(EntityType<T> entityType, Supplier<Minecraft> minecraftSupplier, float scale) {
+        ItemRenderer renderer = minecraftSupplier.get().getItemRenderer();
+        RenderingRegistry.registerEntityRenderingHandler(entityType, (rendererManager) -> new SpriteRenderer<>(rendererManager, renderer, scale, false));
     }
 }

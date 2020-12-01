@@ -1,14 +1,22 @@
 package com.swordofblaze.dungeons_etc.common.datagen.tag;
 
+import com.swordofblaze.dungeons_etc.common.core.DungeonsEtc;
 import com.swordofblaze.dungeons_etc.common.registers.ModBlocks;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.BlockTags;
+import org.jetbrains.annotations.NotNull;
 
 public class BlockTagsGen extends BlockTagsProvider {
 
     public BlockTagsGen(DataGenerator generator) {
         super(generator);
+    }
+
+    @NotNull
+    @Override
+    public String getName() {
+        return DungeonsEtc.NAME + ": " + "Block Type Tags";
     }
 
     @Override

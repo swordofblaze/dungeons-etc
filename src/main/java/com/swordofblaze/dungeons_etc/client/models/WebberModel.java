@@ -1,4 +1,4 @@
-package com.swordofblaze.dungeons_etc.client.renderers.models;
+package com.swordofblaze.dungeons_etc.client.models;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
@@ -15,7 +15,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
  */
 @OnlyIn(Dist.CLIENT)
 public class WebberModel<T extends Entity> extends EntityModel<T> {
-   
+
     public ModelRenderer body;
     public ModelRenderer abdomen;
     public ModelRenderer head;

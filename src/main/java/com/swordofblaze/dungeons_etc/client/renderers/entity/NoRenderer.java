@@ -1,4 +1,4 @@
-package com.swordofblaze.dungeons_etc.client.renderers;
+package com.swordofblaze.dungeons_etc.client.renderers.entity;
 
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -7,7 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
+// NO-OP
 public class NoRenderer extends EntityRenderer<Entity> {
 
     public NoRenderer(EntityRendererManager renderManager) {
