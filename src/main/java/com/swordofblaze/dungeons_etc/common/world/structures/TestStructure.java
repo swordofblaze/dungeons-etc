@@ -2,6 +2,7 @@ package com.swordofblaze.dungeons_etc.common.world.structures;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.util.math.MutableBoundingBox;
+import net.minecraft.util.registry.DynamicRegistries;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
@@ -26,7 +27,8 @@ public class TestStructure extends Structure<NoFeatureConfig> {
             super(structure, p_i225801_2_, p_i225801_3_, boundingBox, p_i225801_5_, p_i225801_6_);
         }
 
-        public void func_230364_a_(ChunkGenerator chunkGenerator, TemplateManager templateManager, int x, int z, Biome biome, NoFeatureConfig config) {
+        @Override
+        public void func_230364_a_(DynamicRegistries dynamicRegistries, ChunkGenerator chunkGenerator, TemplateManager templateManager, int x, int z, Biome biome, NoFeatureConfig config) {
             TestStructurePiece structurePiece = new TestStructurePiece(this.rand, x * 16, z * 16);
             this.components.add(structurePiece);
             this.recalculateStructureSize();

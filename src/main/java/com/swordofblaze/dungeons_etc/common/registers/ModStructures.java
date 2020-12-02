@@ -25,8 +25,4 @@ public class ModStructures {
     public static void addStructureSpawns() {
 
     }
-
-    private static void addStructureSpawn(StructureFeature<?, ?> structure, Biome biome) {
-        biome.func_235063_a_(structure);
-    }
 }

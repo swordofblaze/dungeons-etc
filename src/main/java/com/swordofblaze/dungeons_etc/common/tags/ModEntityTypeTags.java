@@ -15,10 +15,10 @@ public class ModEntityTypeTags {
     public static final ITag.INamedTag<EntityType<?>> MARKED_HUNTERS = forgeTag("marked_hunters");
 
     private static ITag.INamedTag<EntityType<?>> forgeTag(String name) {
-        return EntityTypeTags.func_232896_a_("forge:" + name);
+        return EntityTypeTags.getTagById("forge:" + name);
     }
 
     private static ITag.INamedTag<EntityType<?>> modTag(String name) {
-        return EntityTypeTags.func_232896_a_(DungeonsEtc.resourceLoc(name).toString());
+        return EntityTypeTags.getTagById(DungeonsEtc.resourceLoc(name).toString());
     }
 }

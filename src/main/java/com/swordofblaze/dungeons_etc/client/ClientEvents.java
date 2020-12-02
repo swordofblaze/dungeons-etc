@@ -41,7 +41,7 @@ public class ClientEvents {
             EntityRendererManager rendererManager = Minecraft.getInstance().getRenderManager();
 
             if (rendererManager.info.getRenderViewEntity().getDistanceSq(entity) <= 40.0D) {
-                DungeonsEtc.LOGGER.info("Should do mark icon render");
+                //DungeonsEtc.LOGGER.info("Should do mark icon render");
                 float x = (float) entity.getPosX();
                 float y = (float) entity.getPosY();
                 float z = (float) entity.getPosZ();
@@ -75,7 +75,7 @@ public class ClientEvents {
     public static void renderStressMeter(RenderGameOverlayEvent.Post event) {
         ClientPlayerEntity player = Minecraft.getInstance().player;
 
-        if (!player.isCreative() && event.getType() == RenderGameOverlayEvent.ElementType.EXPERIENCE) {
+        if (!player.isCreative() && !player.isSpectator() && event.getType() == RenderGameOverlayEvent.ElementType.EXPERIENCE) {
             stressBarRenderer.renderStressBar(player, event.getMatrixStack());
         }
     }

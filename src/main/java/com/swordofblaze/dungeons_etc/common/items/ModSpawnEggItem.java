@@ -24,6 +24,7 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.spawner.AbstractSpawner;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -79,7 +80,7 @@ public class ModSpawnEggItem extends Item {
             BlockPos pos1 = state.getCollisionShape(world, pos).isEmpty() ? pos : pos.offset(direction);
             EntityType<?> entityType = this.getType(itemStack.getTag());
 
-            if (entityType.spawn(world, itemStack, context.getPlayer(), pos1, SpawnReason.SPAWN_EGG, true, !Objects.equals(pos, pos1) && direction == Direction.UP) != null) {
+            if (entityType.spawn((ServerWorld) world, itemStack, context.getPlayer(), pos1, SpawnReason.SPAWN_EGG, true, !Objects.equals(pos, pos1) && direction == Direction.UP) != null) {
                 itemStack.shrink(1);
             }
         }
@@ -89,7 +90,7 @@ public class ModSpawnEggItem extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getHeldItem(hand);
-        RayTraceResult rayTraceResult = rayTrace(world, player, RayTraceContext.FluidMode.SOURCE_ONLY);
+        BlockRayTraceResult rayTraceResult = rayTrace(world, player, RayTraceContext.FluidMode.SOURCE_ONLY);
 
         if (rayTraceResult.getType() != RayTraceResult.Type.BLOCK) {
             return ActionResult.resultPass(itemStack);
@@ -98,16 +99,15 @@ public class ModSpawnEggItem extends Item {
             return ActionResult.resultSuccess(itemStack);
         }
         else {
-            BlockRayTraceResult blockRayTraceResult = (BlockRayTraceResult)rayTraceResult;
-            BlockPos pos = blockRayTraceResult.getPos();
+            BlockPos pos = rayTraceResult.getPos();
 
             if (!(world.getBlockState(pos).getBlock() instanceof FlowingFluidBlock)) {
                 return ActionResult.resultPass(itemStack);
             }
-            else if (world.isBlockModifiable(player, pos) && player.canPlayerEdit(pos, blockRayTraceResult.getFace(), itemStack)) {
+            else if (world.isBlockModifiable(player, pos) && player.canPlayerEdit(pos, rayTraceResult.getFace(), itemStack)) {
                 EntityType<?> entityType = this.getType(itemStack.getTag());
 
-                if (entityType.spawn(world, itemStack, player, pos, SpawnReason.SPAWN_EGG, false, false) == null) {
+                if (entityType.spawn((ServerWorld) world, itemStack, player, pos, SpawnReason.SPAWN_EGG, false, false) == null) {
                     return ActionResult.resultPass(itemStack);
                 }
                 else {
