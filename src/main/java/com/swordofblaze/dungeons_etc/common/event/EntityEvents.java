@@ -1,6 +1,5 @@
 package com.swordofblaze.dungeons_etc.common.event;
 
-import com.swordofblaze.dungeons_etc.common.core.DungeonsEtc;
 import com.swordofblaze.dungeons_etc.common.registers.ModEffects;
 import com.swordofblaze.dungeons_etc.common.tags.ModEntityTypeTags;
 import com.swordofblaze.dungeons_etc.common.util.CapabilityHelper;
@@ -11,19 +10,23 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
-import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = DungeonsEtc.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class EntityEvents {
 
     @SubscribeEvent
-    public static void onMarkedEntityDamaged(LivingDamageEvent event) {
+    public void onMarkedEntityDamaged(LivingDamageEvent event) {
         LivingEntity victim = event.getEntityLiving();
         Entity attacker = event.getSource().getTrueSource();
+
+        if (victim instanceof PlayerEntity && event.getSource().isExplosion()) {
+            int stressAmount = Math.round(event.getAmount() * 4);
+
+            if (victim.isServerWorld()) {
+                CapabilityHelper.addPlayerStress((ServerPlayerEntity) victim, stressAmount);
+            }
+        }
 
         if (victim.isPotionActive(ModEffects.DEATH_MARK.get())) {
             if (attacker != null) {
@@ -37,7 +40,7 @@ public class EntityEvents {
     }
 
     @SubscribeEvent
-    public static void onCriticalHit(CriticalHitEvent event) {
+    public void onCriticalHit(CriticalHitEvent event) {
         if (!event.getPlayer().getEntityWorld().isRemote && event.isVanillaCritical()) {
 
             if (event.getTarget() instanceof PlayerEntity) {

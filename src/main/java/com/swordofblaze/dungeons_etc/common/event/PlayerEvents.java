@@ -16,12 +16,11 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = DungeonsEtc.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class PlayerEvents {
 
     @SubscribeEvent
     @SuppressWarnings("all")
-    public static void onPlayerEnterWorld(PlayerEvent.PlayerLoggedInEvent event) {
+    public void onPlayerEnterWorld(PlayerEvent.PlayerLoggedInEvent event) {
         PlayerEntity playerEntity = event.getPlayer();
 
         if (playerEntity.getCapability(Capabilities.STRESS_CAPABILITY, null).isPresent())
@@ -30,7 +29,7 @@ public class PlayerEvents {
 
     @SubscribeEvent
     @SuppressWarnings("all")
-    public static void onPlayerSleep(SleepFinishedTimeEvent event) {
+    public void onPlayerSleep(SleepFinishedTimeEvent event) {
         List<? extends PlayerEntity> players = event.getWorld().getPlayers();
 
         for (PlayerEntity playerEntity : players) {
@@ -41,7 +40,7 @@ public class PlayerEvents {
     }
 
     @SubscribeEvent
-    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+    public void onPlayerTick(TickEvent.PlayerTickEvent event) {
         PlayerEntity playerEntity = event.player;
 
         if (CapabilityHelper.getPlayerStress(playerEntity) >= DefaultStressCapability.maxStress())

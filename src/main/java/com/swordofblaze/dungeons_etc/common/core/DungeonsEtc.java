@@ -1,6 +1,9 @@
 package com.swordofblaze.dungeons_etc.common.core;
 
 import com.swordofblaze.dungeons_etc.common.capability.Capabilities;
+import com.swordofblaze.dungeons_etc.common.event.AttachCapabilityEvents;
+import com.swordofblaze.dungeons_etc.common.event.EntityEvents;
+import com.swordofblaze.dungeons_etc.common.event.PlayerEvents;
 import com.swordofblaze.dungeons_etc.common.network.PacketHandler;
 import com.swordofblaze.dungeons_etc.common.registers.ModBlocks;
 import com.swordofblaze.dungeons_etc.common.registers.ModEffects;
@@ -8,6 +11,7 @@ import com.swordofblaze.dungeons_etc.common.registers.ModEntities;
 import com.swordofblaze.dungeons_etc.common.registers.ModItems;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -38,6 +42,10 @@ public class DungeonsEtc {
 
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         eventBus.addListener(this::commonSetup);
+
+        MinecraftForge.EVENT_BUS.register(new EntityEvents());
+        MinecraftForge.EVENT_BUS.register(new PlayerEvents());
+        MinecraftForge.EVENT_BUS.register(new AttachCapabilityEvents());
 
         ModItems.ITEMS.register(eventBus);
         ModBlocks.BLOCKS.register(eventBus);
